@@ -5,12 +5,15 @@ import {
   ShareOutlined,
 } from "@mui/icons-material";
 import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import Modal from '@mui/material/Modal';
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
+import SimpleModal from "./PictureOnly"
+import { useEffect } from "react";
 
 const PostWidget = ({
   postId,
@@ -47,18 +50,43 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
+  const [open, setOpen] = useState(false);
+  
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+
+    useEffect(() => {
+      
+    }, [open])
+    
+
   return (
-    <WidgetWrapper m="2rem 0">
-      <Friend
-        friendId={postUserId}
-        name={name}
-        subtitle={location}
-        userPicturePath={userPicturePath}
-      />
-      <Typography color={main} sx={{ mt: "1rem" }}>
-        {description}
-      </Typography>
+    <div>
+      {open && <SimpleModal 
+      open={open} 
+      handleClose={handleClose} 
+      handleOpen={handleOpen} 
+      setOpen={setOpen}
+      postId={postId}
+      postUserId={postUserId}
+      name={name}
+      description={description}
+      location={location}
+      picturePath={picturePath}
+      userPicturePath={userPicturePath}
+      likes={likes}
+      comments={comments}
+      />}
       {picturePath && (
+        <div className="image-grid" 
+        onClick={handleOpen}
+        >
         <img
           width="100%"
           height="auto"
@@ -66,8 +94,7 @@ const PostWidget = ({
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
           src={`http://localhost:3001/assets/${picturePath}`}
         />
-      )}
-      <FlexBetween mt="0.25rem">
+        <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
             <IconButton onClick={patchLike}>
@@ -92,20 +119,12 @@ const PostWidget = ({
           <ShareOutlined />
         </IconButton>
       </FlexBetween>
-      {isComments && (
-        <Box mt="0.5rem">
-          {comments.map((comment, i) => (
-            <Box key={`${name}-${i}`}>
-              <Divider />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
-              </Typography>
-            </Box>
-          ))}
-          <Divider />
-        </Box>
+        </div>
+        
       )}
-    </WidgetWrapper>
+      
+      
+    </div>
   );
 };
 

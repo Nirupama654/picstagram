@@ -1,0 +1,14 @@
+.flexBox {
+    /* border: 2px solid red; */
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  */
+    grid-template-columns: repeat(2, 1fr);
+    /* Adjust the minimum and maximum width of each image */
+    grid-gap: 10px; /* Adjust the gap between images */
+  }
+  
+  .image-grid img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* This will ensure the image covers the entire container without distorting the aspect ratio */
+  }

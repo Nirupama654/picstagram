@@ -59,7 +59,7 @@ const MyPostWidget = ({ picturePath }) => {
 
   return (
     <WidgetWrapper>
-      <FlexBetween gap="1.5rem">
+      <FlexBetween>
         <UserImage image={picturePath} />
         <InputBase
           placeholder="What's on your mind..."
@@ -118,7 +118,7 @@ const MyPostWidget = ({ picturePath }) => {
         </Box>
       )}
 
-      <Divider sx={{ margin: "1.25rem 0" }} />
+      {/* <Divider sx={{ margin: "1.25rem 0" }} /> */}
 
       <FlexBetween>
         <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
